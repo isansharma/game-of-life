@@ -1,0 +1,27 @@
+pipeline{
+    agent any
+    tools {
+    maven 'localmaven'
+  }
+    stages{
+        stage('SCM'){
+            steps{
+                git 'https://github.com/isansharma/game-of-life.git'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        stage('Archive'){
+            steps{
+                archiveArtifacts artifacts: '**/target/*.war'
+            }
+        }
+
+    }
+
+
+
+}
